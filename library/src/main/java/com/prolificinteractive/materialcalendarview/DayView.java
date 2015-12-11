@@ -12,6 +12,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.SquareDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
@@ -175,19 +176,6 @@ class DayView extends CheckedTextView {
             customBackground.setState(getDrawableState());
             customBackground.draw(canvas);
         }
-
-        if (circleRect.width() == 0 || circleRect.width() != circleRect.height()) {
-            canvas.getClipBounds(circleRect);
-
-            if (circleRect.width() > circleRect.height()) {
-                int left = circleRect.width() / 2 - circleRect.height() / 2;
-                int right = circleRect.width() / 2 - circleRect.height() / 2 + circleRect.height();
-                circleRect.set(left, circleRect.top, right, circleRect.bottom);
-            }
-            drawable.setBounds(circleRect);
-        }
-
-
         super.onDraw(canvas);
     }
 
@@ -223,7 +211,7 @@ class DayView extends CheckedTextView {
                 return new LinearGradient(0, 0, 0, 0, color, color, Shader.TileMode.REPEAT);
             }
         });
-        return drawable;
+        return new SquareDrawable(drawable);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
